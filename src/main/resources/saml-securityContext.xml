@@ -111,7 +111,7 @@
                     <constructor-arg>
                         <bean class="org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider">
                             <constructor-arg>
-                                <value type="java.io.File">classpath:security/idp.xml</value>
+                                <value type="java.io.File">classpath:security/shibboleth.xml</value>
                             </constructor-arg>
                             <property name="parserPool" ref="parserPool"/>
                         </bean>
@@ -124,7 +124,7 @@
                 <bean class="org.opensaml.saml2.metadata.provider.HTTPMetadataProvider">
                     <!-- URL containing the metadata -->
                     <constructor-arg>
-                        <value type="java.lang.String">http://idp.ssocircle.com/idp-meta.xml</value>
+                        <value type="java.lang.String">https://secure.upclogin.com/idp/shibboleth</value>
                     </constructor-arg>
                     <!-- Timeout for metadata loading in ms -->
                     <constructor-arg>
@@ -136,7 +136,7 @@
                     <constructor-arg>
                         <bean class="org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider">
                             <constructor-arg>
-                                <value type="java.io.File">classpath:security/okta-idp-meta.xml</value>
+                                <value type="java.io.File">classpath:security/shibboleth.xml</value>
                             </constructor-arg>
                             <property name="parserPool" ref="parserPool"/>
                         </bean>

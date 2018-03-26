@@ -5,7 +5,7 @@
 	<artifactId>oauth-2-saml</artifactId>
 	<packaging>war</packaging>
 
-	<name>oAuth-2-SAML Bridge</name>
+	<name>oauth-saml-bridge</name>
 
 	<parent>
 		<groupId>com.ohadr</groupId>
@@ -18,7 +18,7 @@
 		<m2eclipse.wtp.contextRoot>/saml-srv</m2eclipse.wtp.contextRoot>
 		<myScope>compile</myScope>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<com.ohadr.common-crypto.version>2.1-RELEASE</com.ohadr.common-crypto.version>
+		<com.ohadr.common-crypto.version>2.2-SNAPSHOT</com.ohadr.common-crypto.version>
 	</properties>
 
 
@@ -149,8 +149,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1205-jdbc4</version>
 		</dependency>
 
 		<dependency>

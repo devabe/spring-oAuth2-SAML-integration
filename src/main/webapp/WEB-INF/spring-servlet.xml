@@ -39,7 +39,7 @@
     <!-- Protect the /oauth/token url to allow only registered clients -->
     <!-- this statement enables the access to /oauth/token. without it we get "cannot access" -->
     <security:http pattern="/oauth/token"  authentication-manager-ref="clientAuthenticationManager">
-        <security:intercept-url pattern="/oauth/token" access="ROLE_CLIENT" requires-channel="https"/>
+        <security:intercept-url pattern="/oauth/token" access="ROLE_CLIENT" requires-channel="http"/>
         <security:anonymous enabled="false" />
         <security:http-basic />
 
@@ -116,12 +116,21 @@
 		class="org.springframework.security.oauth2.provider.token.JdbcTokenStore">
 		<constructor-arg ref="dataSource" />
 	</bean>
-	
 
+	<!-- MYSQL DRIVER
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="url"
 			value="jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}?allowMultiQueries=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="${MARS_DB_USER}" />
+		<property name="password" value="${MARS_DB_PASSWORD}" />
+	</bean>
+	-->
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="org.postgresql.Driver" />
+		<property name="url"
+			value="jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}?allowMultiQueries=true&amp;characterEncoding=UTF-8" />
 		<property name="username" value="${MARS_DB_USER}" />		<!-- OhadDB -->
 		<property name="password" value="${MARS_DB_PASSWORD}" />	<!-- ohadxxx0921 -->
 	</bean>
