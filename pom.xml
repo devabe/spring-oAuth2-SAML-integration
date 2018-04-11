@@ -29,6 +29,8 @@
 			<groupId>com.ohadr</groupId>
 			<artifactId>common-crypto</artifactId>
 			<version>${com.ohadr.common-crypto.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/lib/common-crypto-2.2-SNAPSHOT.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -70,7 +72,10 @@
 			</exclusions>
 		</dependency>
 
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -170,6 +175,12 @@
 				<configuration>
 					<warName>${warFileName}</warName>
 					<outputDirectory>${publishDirectory}</outputDirectory>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/src/lib</directory>
+                            <targetPath>WEB-INF/lib</targetPath>
+                        </resource>
+                    </webResources>
 				</configuration>
 			</plugin>
 
