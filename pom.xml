@@ -32,8 +32,6 @@
 			<groupId>com.ohadr</groupId>
 			<artifactId>common-crypto</artifactId>
 			<version>${com.ohadr.common-crypto.version}</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/lib/common-crypto-2.2-SNAPSHOT.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -166,6 +164,16 @@
 			<groupId>com.jamonapi</groupId>
 			<artifactId>jamon</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.2</version>
+		</dependency>
 
 	</dependencies>
 
@@ -178,12 +186,6 @@
 				<configuration>
 					<warName>${warFileName}</warName>
 					<outputDirectory>${publishDirectory}</outputDirectory>
-                    <webResources>
-                        <resource>
-                            <directory>${project.basedir}/src/lib</directory>
-                            <targetPath>WEB-INF/lib</targetPath>
-                        </resource>
-                    </webResources>
 				</configuration>
 			</plugin>
 

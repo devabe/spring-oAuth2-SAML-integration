@@ -41,22 +41,32 @@
     <!-- Protect the /oauth/token url to allow only registered clients -->
     <!-- this statement enables the access to /oauth/token. without it we get "cannot access" -->
     <security:http pattern="/oauth/token"  authentication-manager-ref="clientAuthenticationManager">
-        <security:intercept-url pattern="/oauth/token" access="ROLE_CLIENT" requires-channel="http"/>
+        <security:intercept-url pattern="/oauth/token" access="hasAuthority('ROLE_CLIENT')" requires-channel="http"/>
         <security:anonymous enabled="false" />
         <security:http-basic />
 
         <security:custom-filter ref="clientCredentialsTokenEndpointFilter" before="BASIC_AUTH_FILTER" />
+		<security:csrf disabled="true"/>
 
     </security:http>
 
+	<security:http pattern="/oauth/check_token"  authentication-manager-ref="clientAuthenticationManager">
+		<security:intercept-url pattern="/oauth/check_token" access="hasAuthority('ROLE_CLIENT')" requires-channel="http"/>
+		<security:anonymous enabled="false" />
+		<security:http-basic />
+        <security:access-denied-handler ref="oauthAccessDeniedHandler"/>
 
+		<security:custom-filter ref="clientCredentialsTokenEndpointFilter" before="PRE_AUTH_FILTER" />
+		<security:csrf disabled="true"/>
+
+	</security:http>
 
     <security:http 	auto-config="true" 
 				    authentication-manager-ref="authenticationManager"
 				    entry-point-ref="samlEntryPoint">    
 		<security:intercept-url pattern="/publicKey" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <!-- security:intercept-url pattern="/oauth/**"	access="ROLE_USER"  requires-channel="https" /-->
-        <security:intercept-url pattern="/oauth/**"	access="ROLE_USER" />
+        <security:intercept-url pattern="/oauth/**"	access="hasAuthority('ROLE_USER')" />
 		<!-- security:intercept-url pattern="/**" access="ROLE_ADMIN"   requires-channel="https" /-->
         <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/>
 
@@ -65,6 +75,7 @@
         <security:custom-filter before="FIRST" ref="metadataGeneratorFilter"/>
         <security:custom-filter after="BASIC_AUTH_FILTER" ref="samlFilter"/>
 
+		<security:csrf disabled="true"/>
 	</security:http>
     
 
@@ -81,6 +92,7 @@
 
 	<!-- OAuth2 Configuration -->
 	<oauth:authorization-server
+            check-token-enabled="true"
 		client-details-service-ref="clientDetails" 
 		token-services-ref="myAuthorizationServerTokenServices"
 		user-approval-handler-ref="automaticUserApprovalHandler">
@@ -90,6 +102,14 @@
 		<oauth:client-credentials />
 		<oauth:password />
 	</oauth:authorization-server>
+
+    <bean id="clientAuthenticationEntryPoint"
+          class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
+        <property name="typeName" value="Basic"/>
+    </bean>
+
+    <bean id="oauthAccessDeniedHandler"
+          class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler"/>
 
 	<security:authentication-manager id="clientAuthenticationManager">
 		<security:authentication-provider user-service-ref="clientDetailsUserService" />
@@ -118,6 +138,12 @@
 		class="org.springframework.security.oauth2.provider.token.store.JdbcTokenStore">
 		<constructor-arg ref="dataSource" />
 	</bean>
+
+    <bean id="defaultTokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
+        <property name="authenticationManager" ref="clientAuthenticationManager"/>
+        <property name="clientDetailsService" ref="clientDetails"/>
+        <property name="tokenStore" ref="jdbcTokenStore"/>
+    </bean>
 
 	<!-- MYSQL DRIVER
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">

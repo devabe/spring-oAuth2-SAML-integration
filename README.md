@@ -87,7 +87,7 @@ You can execute this query to create more clients on the DB.
         refresh_token_validity, additional_information, autoapprove)
     VALUES
         ('samlOauthClientId', 'secret', 'read,write,trust',
-        'implicit,refresh_token,authorization_code,client_credentials,password', null, 'ROLE_CLIENT', 10000, 10000, null, true);
+        'refresh_token,authorization_code,client_credentials,implicit,password', null, 'ROLE_CLIENT', 100000, 100000, null, true);
        
 ## Store OAuth2 token do DB ##
 #### On MySQL ####

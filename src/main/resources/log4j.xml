@@ -12,7 +12,7 @@
 	</appender>
 
 	<appender name="logFileAppender" class="org.apache.log4j.FileAppender">
-		<param name="Threshold" value="INFO" />
+		<param name="Threshold" value="DEBUG" />
 		<param name="File" value="${catalina.home}/logs/saml-srv.log" />
 		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -38,28 +38,25 @@
 
 	<!-- Loggers -->
 	<logger name="com.ohadr">
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="asyncLogAppender" />
 		<appender-ref ref="asyncConsoleAppender" />
 	</logger>
 
 	<logger name="org.springframework">
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="asyncLogAppender" />
 		<appender-ref ref="asyncConsoleAppender" />
 	</logger>
 
 	<logger name="org.springframework.security">
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="asyncLogAppender" />
 		<appender-ref ref="asyncConsoleAppender" />
 	</logger>
 
-
-
-
 	<root>
-		<priority value="INFO" />
+		<priority value="DEBUG" />
 		<appender-ref ref="asyncConsoleAppender" />
 		<appender-ref ref="asyncLogAppender" />
 	</root>

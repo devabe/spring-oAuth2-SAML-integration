@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 
 @Controller
-@PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasAuthority('ROLE_USER')")
 public class IndexController {
 
     @RequestMapping(value = "/oauth/authorizedResource", method = RequestMethod.GET)
