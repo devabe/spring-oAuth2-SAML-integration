@@ -30,8 +30,8 @@
     
 
 	<context:property-placeholder 
-		ignore-resource-not-found="true" 
-		location="classpath:default.properties" />
+		ignore-resource-not-found="false"
+		location="file:${catalina.home}/conf/saml-bridge.properties" />
 
     <security:http pattern="/publicKey" security="none" />
     <security:http pattern="/version" security="none" />
